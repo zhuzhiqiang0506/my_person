@@ -3,6 +3,7 @@ package com.zb.entity;
 import java.io.Serializable;
 
 // 实体类
+// 远程修改
 public class Dept implements Serializable {
 
     private Integer deptId;
