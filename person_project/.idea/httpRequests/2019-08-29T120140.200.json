@@ -1,0 +1,14 @@
+[
+  {
+    "deptId": 1,
+    "deptName": "aaa"
+  },
+  {
+    "deptId": 2,
+    "deptName": "bbb"
+  },
+  {
+    "deptId": 3,
+    "deptName": "ccc"
+  }
+]

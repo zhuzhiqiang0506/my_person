@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zb.mapper.PersonMapper">
+
+    <resultMap id="map" type="com.zb.entity.Person">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <result property="address" column="address"></result>
+        <association property="dept" javaType="com.zb.entity.Dept">
+            <result property="deptId" column="did"></result>
+            <result property="deptName" column="deptName"></result>
+        </association>
+    </resultMap>
+
+    <select id="findPersonByPage" resultMap="map">
+        SELECT p.*,d.`deptName` FROM person p,dept d WHERE p.`did`=d.`deptId`
+        <if test="name!=null and name!=''">
+            and name like concat('%',#{name},'%')
+        </if>
+        <if test="did!=null and did!=0">
+            and did = #{did}
+        </if>
+        limit #{index},#{size}
+    </select>
+
+    <select id="findPersonCount" resultType="int">
+        SELECT count(1) FROM person p,dept d WHERE p.`did`=d.`deptId`
+        <if test="name!=null and name!=''">
+            and name like concat('%',#{name},'%')
+        </if>
+        <if test="did!=null and did!=0">
+            and did = #{did}
+        </if>
+    </select>
+
+    <insert id="savePerson" parameterType="com.zb.entity.Person">
+        insert into person values(null,#{name},#{age},#{address},#{dept.deptId})
+    </insert>
+
+    <update id="updatePerson" parameterType="com.zb.entity.Person">
+        update person
+        set
+        name = #{name},
+        age = #{age},
+        address = #{address},
+        did = #{dept.deptId}
+        where
+        id = #{id}
+    </update>
+
+    <select id="findPersonById" resultMap="map">
+        select * from person where id = #{id}
+    </select>
+
+    <delete id="deletePerson">
+        delete from person where id = #{id}
+    </delete>
+
+</mapper>  
