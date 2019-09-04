@@ -17,7 +17,7 @@ spring:
       percentage: 1.0
 feign:
   hystrix:
-    enabled: false
+    enabled: true
 
 order-provider:
   ribbon:
